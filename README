@@ -1,0 +1,25 @@
+Bienvenidos a la prueba de GIT!!!
+
+El script RUNClustering.R es el que realiza el clustering jerarquico. Recibe como entrada un data set que tiene que tener las siguientes caracteristicas (VER ARCHIVO DataSet_ejemplo):
+
+- Se deben respetar los nombres de los encabezados de las columnas y ademas la separación por ";"
+- Se deben realizar los alineamientos de todos los decoys + conformeros CODNAS en forma no redundante, es decir, si tenemos:
+A1
+A2
+A3
+A4
+
+Las comparaciones podrían ser:
+A1-A2
+A1-A3
+A1-A4
+A2-A3
+A2-A4
+
+También podria cambiar el orden en el par, ya que los RMSD van a dar lo mismo.
+
+Para ejecutarlo al script se hace:
+
+R CMD -vanilla RUNClustering.R
+
+En un mismo archivo se pueden tener los alineamientos de los decoys de distintos targets, siemrp y cuando en la columna Target se ponga a que target de CASP pertenece ese par, el programa sabra diferenciar que debe clusterizar e ira generando dos archivos, uno con la informacion de los clusters en un .txt y otro va a ser el .png con la imagen
