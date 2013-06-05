@@ -1,6 +1,4 @@
-## MODIFICAR:
-tabla_de_pares <- "prueba"
-##
+tabla_de_pares <- "MAMMOTH_T0630-D1_noorigconf.out"  ## Input file name
 
 library(apcluster)
 library(mefa)
@@ -25,7 +23,7 @@ textclust <- function(clust,x,minimo){
 
 for(x in niveles){tryCatch({
   dos <- subset(tabla, Target==x)
-  if(exists("dos") & nrow(dos)<2) next
+  if(exists("dos") & nrow(dos)<2) next  # if there are 2+ lines for Target to cluster
   tryCatch({dif <- vec2dist(dos$RMSD,size=length(unique(dos$PDB_2))+1,labels=unique(c(dos$PDB_1[1],dos$PDB_2)))
             #sim <- as.matrix(vec2dist(dos$TMscore_TMvalue,size=length(unique(dos$PDB_2))+1,labels=unique(c(dos$PDB_1[1],dos$PDB_2))))
   },error=function(e){NULL})
@@ -46,18 +44,18 @@ for(x in niveles){tryCatch({
         if(max(altura)<1){ cut <- 0 }
         minimo <- 1
       }else{
-	minimo <- min(altura) + 0.1 }
-      textclust(clust,x,minimo)
-      png(paste(c(x,".hclusterRMSD.png"),collapse=""),width=1000, height=1000)
-      if(cut){  plot(clust,hang=-1,main=x,xlab=paste("Distance: RMSD from Mammoth, clusters at ",as.character(minimo)," Ångströms"))
-                clust <- rect.hclust(clust,h=minimo) 
-              }else{
-                plot(clust,hang=-1,main=x,xlab=paste("Distance: RMSD from Mammoth, 1 cluster at ",as.character(minimo)," Ångström")) 
-              }
-      dev.off()
-      rm(list=c("altura","clust","minimo")); gc()
-    },error=function(e){NULL})
-  }
+        minimo <- min(altura) + 0.1 }
+        textclust(clust,x,minimo)
+        png(paste(c(x,".hclusterRMSD.png"),collapse=""),width=8000, height=8000)
+        if(cut){  plot(clust,hang=-1,main=x,xlab=paste("Distance: RMSD from Mammoth, clusters at ",as.character(minimo)," Ångströms"))
+          clust <- rect.hclust(clust,h=minimo) 
+        }else{
+          plot(clust,hang=-1,main=x,xlab=paste("Distance: RMSD from Mammoth, 1 cluster at ",as.character(minimo)," Ångström")) 
+        }
+        dev.off()
+        rm(list=c("altura","clust","minimo")); gc()
+      },error=function(e){NULL})
+    }
   rm(list=c("dos","dif","ap")); gc()
 },error=function(e){NULL})}
 
