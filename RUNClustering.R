@@ -1,6 +1,4 @@
-## MODIFICAR:
-tabla_de_pares <- "prueba"
-##
+tabla_de_pares <- "MAMMOTH_T0630-D1_noorigconf.out"  ## Input file name
 
 library(apcluster)
 library(mefa)
@@ -48,7 +46,7 @@ for(x in niveles){tryCatch({
       }else{
 	minimo <- min(altura) + 0.1 }
       textclust(clust,x,minimo)
-      png(paste(c(x,".hclusterRMSD.png"),collapse=""),width=1000, height=1000)
+      png(paste(c(x,".hclusterRMSD.png"),collapse=""),width=8000, height=8000)
       if(cut){  plot(clust,hang=-1,main=x,xlab=paste("Distance: RMSD from Mammoth, clusters at ",as.character(minimo)," Ångströms"))
                 clust <- rect.hclust(clust,h=minimo) 
               }else{
