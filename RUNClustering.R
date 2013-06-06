@@ -56,6 +56,7 @@ for(x in niveles){tryCatch({
         rm(list=c("altura","clust","minimo")); gc()
       },error=function(e){NULL})
     }
+  
   rm(list=c("dos","dif","ap")); gc()
 },error=function(e){NULL})}
 
